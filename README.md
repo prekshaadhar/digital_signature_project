@@ -1,6 +1,6 @@
 # Digital Signature System
 
-A hands-on cybersecurity project that brings digital signature verification to life using Flask, RSA cryptography, SHA-256 hashing, and MySQL. Built as part of Applied Cryptography (IT-3225).
+A hands-on cybersecurity project that brings digital signature verification to life using Flask, RSA cryptography, SHA-256 hashing, and MySQL. 
 
 ---
 
