@@ -1,0 +1,73 @@
+body {
+    font-family: 'Segoe UI';
+    background: #020617;
+    color: #e2e8f0;
+}
+
+.status-bar {
+    background: #0f172a;
+    padding: 10px;
+    text-align: center;
+    color: #38bdf8;
+}
+
+.container {
+    width: 85%;
+    margin: auto;
+}
+
+.card {
+    background: rgba(15,23,42,0.9);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,255,255,0.2);
+}
+
+textarea {
+    width: 90%;
+    height: 80px;
+    background: black;
+    color: #22d3ee;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+    background: #06b6d4;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0ea5e9;
+}
+
+.wrap {
+    word-break: break-all;
+}
+
+.attack {
+    border: 2px solid red;
+}
+
+.tampered {
+    color: #f87171;
+}
+
+.explain {
+    color: #facc15;
+}
+
+.result.green { color: #22c55e; }
+.result.red { color: #ef4444; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #334155;
+    padding: 10px;
+}

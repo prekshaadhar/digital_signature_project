@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyber Security Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="status-bar">
+    🔐 System Status: {{ last_action }}
+</div>
+
+<div class="container">
+
+<h1>🛡️ Cybersecurity Student Lab</h1>
+
+<div class="card">
+    <h2>🔑 Generate Digital Signature</h2>
+    <form method="POST">
+        <select name="mode">
+            <option>Assignment</option>
+            <option>Code</option>
+            <option>Email</option>
+        </select>
+
+        <textarea name="message"></textarea>
+        <button>Sign & Protect</button>
+    </form>
+</div>
+
+{% if signature %}
+<div class="card">
+    <h3>Signature</h3>
+    <p class="wrap">{{ signature }}</p>
+
+    <h3>Hash</h3>
+    <p class="wrap">{{ original_hash }}</p>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>🧪 Verify Integrity</h2>
+    <form method="POST" action="/verify">
+        <textarea name="message"></textarea>
+        <button>Verify</button>
+    </form>
+</div>
+
+{% if new_hash %}
+<div class="card">
+    <h3>Hash Comparison</h3>
+    <p class="wrap">Original: {{ original_hash }}</p>
+    <p class="wrap">New: {{ new_hash }}</p>
+</div>
+{% endif %}
+
+<div class="card attack">
+    <h2>🚨 Attack Simulator</h2>
+
+    <form method="POST" action="/attack">
+        <button name="attack_type" value="modify">Modify</button>
+        <button name="attack_type" value="inject">Inject</button>
+        <button name="attack_type" value="delete">Delete</button>
+    </form>
+
+    {% if tampered %}
+    <p class="tampered">{{ tampered }}</p>
+    <p class="explain">{{ explanation }}</p>
+
+    <form method="POST" action="/verify">
+        <input type="hidden" name="message" value="{{ tampered }}">
+        <button>Verify Tampered</button>
+    </form>
+    {% endif %}
+</div>
+
+{% if result %}
+<div class="result {{ color }}">
+    {{ alert }}
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>📊 Dashboard</h2>
+    <p>Signed: {{ stats.signed }}</p>
+    <p>Valid: {{ stats.valid }}</p>
+    <p>Invalid: {{ stats.invalid }}</p>
+    <p>Attacks: {{ stats.attacks }}</p>
+</div>
+
+<div class="card">
+    <h2>📋 Logs</h2>
+
+    <form method="POST" action="/clear_logs">
+        <button>Clear Logs</button>
+    </form>
+
+    <a href="/download"><button>Download Report</button></a>
+
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Time</th>
+        </tr>
+
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.log_type }}</td>
+            <td>{{ log.message }}</td>
+            <td>{{ log.result }}</td>
+            <td>{{ log.time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</div>
+</body>
+</html>
