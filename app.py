@@ -10,7 +10,6 @@ import random
 
 app = Flask(__name__)
 
-# ----------------- DB -----------------
 db = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -19,17 +18,14 @@ db = mysql.connector.connect(
 )
 cursor = db.cursor(dictionary=True)
 
-# ----------------- KEYS -----------------
 key = RSA.generate(2048)
 private_key = key
 public_key = key.publickey()
 
-# ----------------- GLOBAL -----------------
 last_message = ""
 last_signature = None
 last_mode = "Assignment"
 
-# ----------------- HOME -----------------
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global last_message, last_signature, last_mode
@@ -69,7 +65,6 @@ def index():
                            last_action="System Ready")
 
 
-# ----------------- VERIFY -----------------
 @app.route('/verify', methods=['POST'])
 def verify():
     global last_signature, last_mode
@@ -117,14 +112,12 @@ def verify():
                            last_action="Verification Complete")
 
 
-# ----------------- ATTACK -----------------
 @app.route('/attack', methods=['POST'])
 def attack():
     global last_message
 
     attack_type = request.form.get('attack_type')
 
-    # ✅ FIX: prevent crash
     if not attack_type:
         return redirect(url_for('index'))
 
@@ -167,7 +160,6 @@ def attack():
                            last_action="Attack Simulation Executed")
 
 
-# ----------------- DOWNLOAD -----------------
 @app.route('/download')
 def download():
     report_path = os.path.join(os.getcwd(), "report.txt")
@@ -192,7 +184,6 @@ def download():
     return send_file(report_path, as_attachment=True)
 
 
-# ----------------- CLEAR LOGS -----------------
 @app.route('/clear_logs', methods=['POST'])
 def clear_logs():
     cursor.execute("DELETE FROM messages")
@@ -201,7 +192,6 @@ def clear_logs():
     return redirect(url_for('index'))
 
 
-# ----------------- STATS -----------------
 def fetch_stats_logs():
     cursor.execute("SELECT COUNT(*) as signed FROM messages")
     signed = cursor.fetchone()['signed']
@@ -237,6 +227,5 @@ def fetch_stats_logs():
     return stats, logs
 
 
-# ----------------- RUN -----------------
 if __name__ == '__main__':
     app.run(debug=True)
