@@ -50,4 +50,3 @@ See the screenshots folder for complete documentation.
 
 ---
 
-*Developed by Prekshaa Dhar*
